@@ -6,3 +6,5 @@ t = Jinja2Templates(directory="app/templates")
 @app.get("/",response_class=HTMLResponse)
 async def everything(req: Request, bom: str = ""):
     if req.headers.get("HX-Request"):
+        return t.TemplateResponse(req,"results.html",{"parts":'\n'.join([f"<li>{x}</li>" for x in bom.strip()])})
+    else: return t.TemplateResponse(req,"index.html",{})
