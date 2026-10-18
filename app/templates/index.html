@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>LCSRC</title>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+</head>
+<body>
+<h1>LCSC/JLCPCB sourcing</h1>
+<textarea type="search" id="bom" name="bom" placeholder="Paste a list of LCSC part numbers here!"
+></textarea>
+<button hx-get="/" hx-swap="innerHTML" hx-target="#search-results" hx-include="#bom"></button>
+<div id="search-results"></div>
+</body>
+</html>
