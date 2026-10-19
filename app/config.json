@@ -8,6 +8,12 @@
 ["Spring clamp connectors","spring_conn",["Voltage","Current","Pitch","GaugeSurface","AWG"],["SpecMount"],["Spring clamp connector","Spring clamp terminal block"]],
 ["Battery Holders","bat",["ConnType","BatteryType","MinTemp","MaxTemp"],[],[]],
 ["USB connectors",["Num","Pins","Standard","SpecMount","is_right_angle"],[],["USB-A Receptacle", "USB-A Plug", "Micro-B", "USB-C Receptacle", "USB-C Plug"]],
-["Other data connectors","data_conn",["Pins","Current","Standard","is_female"],[],["HDMI"]]
+["Other data connectors","data_conn",["Pins","Current","Standard","is_female"],[],["HDMI"]],
+["Switches","switches",["Width","Length","Height","Pins","Voltage","Current","SwitchType","Circuit","Force","is_latching","ActuatorStyle","ActuatorColor","Life"],[],[]],
+["Diodes","diodes",["Vf","Vreverse","If","ReverseLeakageCurrent"],["PowerRated","Vfmin","Vfmax","ZenerNominal","ZenerMin","ZenerMax","PeakCurrent","RectifiedCurrent"],["Rectifier","Schottky","Zener","TVS"]],
+["LEDs","leds",["Color","ColorList","Wavelength","Intensity","Vf","If","PowerRated","LensColor","is_rgb"],["D"],[]],
+["LEDs with IC","ic_led",["Vmin","Vmax", "is_rgb", "is_with_white", "ColorControl", "Protocol", "DataRate", "RedIntensity", "RedPeak", "RedMinWavelength", "RedMaxWavelength"], ["GreenIntensity", "GreenPeak", "GreenMinWavelength", "GreenMaxWavelength", "BlueIntensity", "BluePeak", "BlueMinWavelength", "BlueMaxWavelength", "WhiteIntensity", "WhitePeak", "WhiteMinWavelength", "WhiteMaxWavelength", "WhiteTempKelvin"]],
+["Photodiodes","photodiodes",["PeakWavelength","SpectrumMin","SpectrumMax","DarkCurrent","Vreverse","Width","Height"],[],[]],
+["Optical sensors","opto_sensors",["SensorType"],["FallTime","RiseTime","DarkCurrent","OutputCurrent"],[]]
 ]
 }
