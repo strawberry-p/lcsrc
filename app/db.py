@@ -21,13 +21,22 @@ def get_db() -> tuple[sq3.Connection,sq3.Cursor]:
 def init_main_db():
     conn,cur = get_db()
     cur.execute("""
-        CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE,type,subtype,j_category,j_subcat,sort_id,company,desc,package,pins,is_smd,stock,power,
-        j_highp,j_highp_c,j_lowp,j_lowp_c,l_highp,l_highp_c,l_lowp,l_lowp_c,assembly,is_basic,json)
+        CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE, type TEXT NOT NULL, subtype TEXT, j_category TEXT NOT NULL, j_subcat TEXT NOT NULL, sort_id INTEGER, company TEXT NOT NULL, company_id INT NOT NULL, desc TEXT, package TEXT, pins INTEGER, is_smd, stock INTEGER, power REAL,
+        j_highp REAL NOT NULL, j_highp_c INTEGER NOT NULL, j_lowp REAL NOT NULL, j_lowp_c INTEGER NOT NULL, l_highp REAL, l_highp_c INTEGER, l_lowp REAL, l_lowp_c INTEGER,
+        assembly TEXT,is_basic,json TEXT NOT NULL)
         """)
     cur.execute("""
         CREATE VIRTUAL TABLE IF NOT EXISTS fts_main USING fts5(id, mfr,company,desc,package,assembly,content='main',content_rowid='num_id')
         """)
     # j* = jlcpcb, l* = lcsc, p = price, p_c = min count for prize
+    conn.commit()
+    cur.execute("""CREATE TRIGGER IF NOT EXISTS main_ins AFTER INSERT ON main BEGIN
+        INSERT INTO fts_main (rowid,id,mfr,company,desc,package,assembly) VALUES (new.num_id,new.id,new.mfr,new.company,new.desc,new.package,new.assembly); END;""")
+    cur.execute("""CREATE TRIGGER IF NOT EXISTS main_del AFTER DELETE ON main BEGIN
+        INSERT INTO fts_main (fts_main,rowid,id,mfr,company,desc,package,assembly) VALUES ('delete',old.num_id,old.id,old.mfr,old.company,old.desc,old.package,old.assembly); END;""")
+    cur.execute("""CREATE TRIGGER IF NOT EXISTS main_upd AFTER UPDATE ON main BEGIN
+        INSERT INTO fts_main (fts_main,rowid,id,mfr,company,desc,package,assembly) VALUES ('delete',old.num_id,old.id,old.mfr,old.company,old.desc,old.package,old.assembly);
+        INSERT INTO fts_main (rowid,id,mfr,company,desc,package,assembly) VALUES (new.num_id,new.id,new.mfr,new.company,new.desc,new.package,new.assembly); END;""")
     conn.commit()
     conn.close()
 
