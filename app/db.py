@@ -13,9 +13,12 @@ remake_fts: bool = False
 def get_db() -> tuple[sq3.Connection,sq3.Cursor]:
     conn = sq3.connect(DB_PATH)
     conn.row_factory = sq3.Row
-    return (conn,conn.cursor())
+    return conn
 def init_main_db():
-    with get_db() as conn,cur:
+    if dryrun:
+        print("skipping main db init because of dryrun")
+    with get_db() as conn:
+        cur = conn.cursor()
         if remake_fts or remake:
             cur.execute("DROP TRIGGER IF EXISTS main_ins")
             cur.execute("DROP TRIGGER IF EXISTS main_del")
@@ -44,34 +47,46 @@ def init_main_db():
 
 def init_compl_tables():
     global COMPL_DB_ARRAY,CONFIG
-    with get_db() as conn,cur:
+    with get_db() as conn:
+        cur = conn.cursor()
         for data in COMPL_DB_ARRAY:
             res_keys:str = ""
             for i in data[3]: res_keys += i+","
             for i in data[4]: res_keys += i+","
             res_keys = res_keys[:-1]
             print(res_keys)
-            if remake: cur.execute(f"DROP TABLE {data[2]} IF EXISTS")
-            cur.execute(f"CREATE VIRTUAL TABLE IF NOT EXISTS {data[2]} USING fts5({res_keys})") #f-strings because none of this is user input
+            if not dryrun:
+                if remake: cur.execute(f"DROP TABLE IF EXISTS {data[2]}")
+                cur.execute(f"CREATE VIRTUAL TABLE IF NOT EXISTS {data[2]} USING fts5({res_keys})") #f-strings because none of this is user input
         conn.commit()
         conn.close()
 
 if __name__ == "__main__":
+    if not Path("app").is_dir() or not Path("app/db.py").exists():
+        print(f"app/ doesn't exist or doesn't contain this module, check that {str(Path.cwd())} is the correct directory")
+    if "--dry-run" in sys.argv: dryrun = True
+    if not Path("data").is_dir():
+        if dryrun: print("data/ is missing")
+        else:
+            print("creating data/")
+            Path("data").mkdir(exist_ok=True)
     with CONFIG_PATH.open() as f:
         CONFIG = json.load(f)
     COMPL_DB_ARRAY = CONFIG["compl_db_array"]
     if "--dry-run" in sys.argv: dryrun = True
     if "--list-tables" in sys.argv:
         dryrun = True
-        with get_db() as conn,cur:
+        with get_db() as conn:
+            cur = conn.cursor()
             cur.execute("SELECT * FROM sqlite_master")
             print(cur.fetchall())
     if "--remake" in sys.argv:
-        if !dryrun and input("delete and recreate empty tables? yes/*\n") == "yes": remake = True
+        if not dryrun and input("delete and recreate empty tables? yes/*\n") == "yes": remake = True
     if "--remake-fts": remake_fts = True
     if "--compl" in sys.argv: init_compl_tables()
     init_main_db()
-    with get_db() as conn,cur:
+    with get_db() as conn:
+        cur = conn.cursor()
         if "--show-data" in sys.argv:
             cur.execute("SELECT id, mfr, company, package FROM main")
             out = ""
