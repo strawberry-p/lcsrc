@@ -21,8 +21,11 @@ def get_db() -> tuple[sq3.Connection,sq3.Cursor]:
 def init_main_db():
     conn,cur = get_db()
     cur.execute("""
-        CREATE VIRTUAL TABLE IF NOT EXISTS main USING fts5(id, mfr,type,subtype,subsubtype,sort_id,company,desc,package,pins,is_smd,stock,power,
+        CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE,type,subtype,j_category,j_subcat,sort_id,company,desc,package,pins,is_smd,stock,power,
         j_highp,j_highp_c,j_lowp,j_lowp_c,l_highp,l_highp_c,l_lowp,l_lowp_c,assembly,is_basic,json)
+        """)
+    cur.execute("""
+        CREATE VIRTUAL TABLE IF NOT EXISTS fts_main USING fts5(id, mfr,company,desc,package,assembly,content='main',content_rowid='num_id')
         """)
     # j* = jlcpcb, l* = lcsc, p = price, p_c = min count for prize
     conn.commit()
