@@ -1,18 +1,14 @@
 import sqlite3 as sq3
+import json, sys
+from pathlib import Path
 DB_PATH = "data/parts.db"
-COMPL_DB_ARRAY: list[tuple[int,str,str,list[str],list[str],list[str]]] = [ # (type_id,type_name,type_db,common_attrs,possible_attrs,subtypes)
-    (0,"Resistors","resistors",["Resistance","Tolerance","MOV"],["TempCo","Vmax"],["Thick Film","Carbon Film","Metal Oxide Film"]),
-    (1,"Resistor arrays","resistor_arrays",["Resistance","Tolerance","TempCo","Num"],[],[]),
-    (2,"Capacitors","capacitors",["Capacitance","Tolerance","Vmax","is_polarized"],[],["Electrolytic","Ceramic","Tantalum"]),
-    (3,"Headers","headers",["Pitch", "Rows","Gender","is_right_angle"],["is_female","PinLength","RowSpacing","is_circular"],["Header","WireToBoard"]),
-    (4,"Power connectors","power_conn",[],["ID","OD","Voltage","Current","is_right_angle","Pitch"],["BarrelJack","JST"]),
-    (5,"PC connectors","pc_conn",["Height","is_right_angle","Standard"],["M2Key"],["DIMM","SO-DIMM","PCIe M.2"]),
-    (6,"Spring clamp connectors","spring_conn",["Voltage","Current","Pitch","GaugeSurface","AWG"],["SpecMount"],["Spring clamp connector","Spring clamp terminal block"]),
-    (7,"Battery Holders","bat",["ConnType","BatteryType","MinTemp","MaxTemp"],[],[])
-    (8,"USB connectors",["Num","Pins","Standard","SpecMount","is_right_angle","is_female"],[],["USB-A","Micro-B","USB-C"]),
-    (9,"Other data connectors","data_conn",["Pins","Current","Standard","is_female"],[],["HDMI"])
-    ]
+CONFIG_PATH = Path("app/config.json")
+COMPL_DB_ARRAY: list[list[str,str,list[str],list[str],list[str]]] = [] # (type_name,type_db,common_attrs,possible_attrs,subtypes)
 # A lot of useful parameters aren't in the JLCSearch website table! 'json' provides them
+CONFIG: dict = {}
+dryrun: bool = False
+remake: bool = False
+remake_fts: bool = False
 
 def get_db() -> tuple[sq3.Connection,sq3.Cursor]:
     conn = sq3.connect(DB_PATH)
@@ -20,10 +16,16 @@ def get_db() -> tuple[sq3.Connection,sq3.Cursor]:
     return (conn,conn.cursor())
 def init_main_db():
     with get_db() as conn,cur:
+        if remake_fts or remake:
+            cur.execute("DROP TRIGGER IF EXISTS main_ins")
+            cur.execute("DROP TRIGGER IF EXISTS main_del")
+            cur.execute("DROP TRIGGER IF EXISTS main_upd")
+            cur.execute("DROP TABLE IF EXISTS fts_main")
+        if remake: cur.execute("DROP TABLE IF EXISTS main")
         cur.execute("""
-            CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE, type TEXT NOT NULL, subtype TEXT, j_category TEXT NOT NULL, j_subcat TEXT NOT NULL, sort_id INTEGER, company TEXT NOT NULL, company_id INT NOT NULL, desc TEXT, package TEXT, pins INTEGER, is_smd, stock INTEGER, power REAL,
+            CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE, type TEXT, subtype TEXT, type_index INT, j_category TEXT NOT NULL, j_subcat TEXT NOT NULL, sort_id INTEGER, company TEXT NOT NULL, company_id INT NOT NULL, desc TEXT, package TEXT, pins INTEGER, is_smd INTEGER, stock INTEGER, power REAL,
             j_highp REAL NOT NULL, j_highp_c INTEGER NOT NULL, j_lowp REAL NOT NULL, j_lowp_c INTEGER NOT NULL, l_highp REAL, l_highp_c INTEGER, l_lowp REAL, l_lowp_c INTEGER,
-            assembly TEXT,is_basic,json TEXT NOT NULL)
+            assembly TEXT, is_basic INTEGER, is_preferred INTEGER, json TEXT NOT NULL)
             """)
         cur.execute("""
             CREATE VIRTUAL TABLE IF NOT EXISTS fts_main USING fts5(id, mfr,company,desc,package,assembly,content='main',content_rowid='num_id')
@@ -41,7 +43,7 @@ def init_main_db():
         conn.close()
 
 def init_compl_tables():
-    remake = False
+    global COMPL_DB_ARRAY,CONFIG
     with get_db() as conn,cur:
         for data in COMPL_DB_ARRAY:
             res_keys:str = ""
@@ -53,4 +55,35 @@ def init_compl_tables():
             cur.execute(f"CREATE VIRTUAL TABLE IF NOT EXISTS {data[2]} USING fts5({res_keys})") #f-strings because none of this is user input
         conn.commit()
         conn.close()
+
+if __name__ == "__main__":
+    with CONFIG_PATH.open() as f:
+        CONFIG = json.load(f)
+    COMPL_DB_ARRAY = CONFIG["compl_db_array"]
+    if "--dry-run" in sys.argv: dryrun = True
+    if "--list-tables" in sys.argv:
+        dryrun = True
+        with get_db() as conn,cur:
+            cur.execute("SELECT * FROM sqlite_master")
+            print(cur.fetchall())
+    if "--remake" in sys.argv:
+        if !dryrun and input("delete and recreate empty tables? yes/*\n") == "yes": remake = True
+    if "--remake-fts": remake_fts = True
+    if "--compl" in sys.argv: init_compl_tables()
+    init_main_db()
+    with get_db() as conn,cur:
+        if "--show-data" in sys.argv:
+            cur.execute("SELECT id, mfr, company, package FROM main")
+            out = ""
+            i = 0
+            for entry in cur.fetchmany(100):
+                if out == "": out = f"{i}    {entry[0]} | {entry[1]} | {entry[2]} | {entry[3]}"
+                else:
+                    out += f"  ||  {entry[0]} | {entry[1]} | {entry[2]} | {entry[3]}"
+                    print(out)
+                    out = ""
+                i += 1
+        cur.execute("SELECT COUNT(id) FROM main")
+        print(cur.fetchone())
+
 

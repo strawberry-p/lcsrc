@@ -12,7 +12,7 @@
 ["Switches","switches",["Width","Length","Height","Pins","Voltage","Current","SwitchType","Circuit","Force","is_latching","ActuatorStyle","ActuatorColor","Life"],[],[]],
 ["Diodes","diodes",["Vf","Vreverse","If","ReverseLeakageCurrent"],["PowerRated","Vfmin","Vfmax","ZenerNominal","ZenerMin","ZenerMax","PeakCurrent","RectifiedCurrent"],["Rectifier","Schottky","Zener","TVS"]],
 ["LEDs","leds",["Color","ColorList","Wavelength","Intensity","Vf","If","PowerRated","LensColor","is_rgb"],["D"],[]],
-["LEDs with IC","ic_led",["Vmin","Vmax", "is_rgb", "is_with_white", "ColorControl", "Protocol", "DataRate", "RedIntensity", "RedPeak", "RedMinWavelength", "RedMaxWavelength"], ["GreenIntensity", "GreenPeak", "GreenMinWavelength", "GreenMaxWavelength", "BlueIntensity", "BluePeak", "BlueMinWavelength", "BlueMaxWavelength", "WhiteIntensity", "WhitePeak", "WhiteMinWavelength", "WhiteMaxWavelength", "WhiteTempKelvin"]],
+["LEDs with IC","ic_led",["Vmin","Vmax", "is_rgb", "is_with_white", "ColorControl", "Protocol", "DataRate", "RedIntensity", "RedPeak", "RedMinWavelength", "RedMaxWavelength"], ["GreenIntensity", "GreenPeak", "GreenMinWavelength", "GreenMaxWavelength", "BlueIntensity", "BluePeak", "BlueMinWavelength", "BlueMaxWavelength", "WhiteIntensity", "WhitePeak", "WhiteMinWavelength", "WhiteMaxWavelength", "WhiteTempKelvin"], []],
 ["Photodiodes","photodiodes",["PeakWavelength","SpectrumMin","SpectrumMax","DarkCurrent","Vreverse","Width","Height"],[],[]],
 ["Optical sensors","opto_sensors",["SensorType"],["FallTime","RiseTime","DarkCurrent","OutputCurrent"],[]]
 ]
