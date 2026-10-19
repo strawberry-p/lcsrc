@@ -1,0 +1,13 @@
+{"compl_db_array":[
+["Resistors","resistors",["Resistance","Tolerance","MOV"],["TempCo","Vmax"],["Thick Film","Carbon Film","Metal Oxide Film","Photoresistor","NTC Thermistor","PTC Thermistor"]],
+["Resistor arrays","resistor_arrays",["Resistance","Tolerance","TempCo","Num","Pins"],[],[]],
+["Capacitors","capacitors",["Capacitance","Tolerance","Vmax","is_polarized"],[],["Electrolytic","Ceramic","Tantalum"]],
+["Headers","headers",["Pitch", "Rows","Gender","is_right_angle"],["is_female","PinLength","RowSpacing","is_circular"],["Header","WireToBoard"]],
+["Power connectors","power_conn",[],["ID","OD","Voltage","Current","is_right_angle","Pitch"],["BarrelJack","JST"]],
+["PC connectors","pc_conn",["Height","is_right_angle","Standard"],["M2Key"],["DIMM","SO-DIMM","PCIe M.2"]],
+["Spring clamp connectors","spring_conn",["Voltage","Current","Pitch","GaugeSurface","AWG"],["SpecMount"],["Spring clamp connector","Spring clamp terminal block"]],
+["Battery Holders","bat",["ConnType","BatteryType","MinTemp","MaxTemp"],[],[]],
+["USB connectors",["Num","Pins","Standard","SpecMount","is_right_angle"],[],["USB-A Receptacle", "USB-A Plug", "Micro-B", "USB-C Receptacle", "USB-C Plug"]],
+["Other data connectors","data_conn",["Pins","Current","Standard","is_female"],[],["HDMI"]]
+]
+}
