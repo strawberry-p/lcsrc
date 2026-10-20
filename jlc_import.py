@@ -1,6 +1,6 @@
 import requests as r
 from pathlib import Path
-import bs4, sys, time, csv
+import sys, time, csv
 import app.db as db
 
 METADATA_PATH = Path("data/meta.csv")
