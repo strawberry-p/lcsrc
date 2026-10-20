@@ -3,13 +3,16 @@
 <head>
 <title>LCSRC</title>
 <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-
+<link rel="stylesheet" href="{{  url_for('static',path='style.css')  }}">
 </head>
-<body>
+<body style="font-family: Calibri, sans-serif;">
 <h1>LCSC/JLCPCB sourcing</h1>
-<textarea type="search" id="bom" name="bom" placeholder="Paste a list of LCSC part numbers here!"
+<textarea type="search" id="bom" name="bom" rows="10" placeholder="Paste a list of JLCPCB part numbers here"
 ></textarea>
-<button hx-get="/" hx-swap="innerHTML" hx-target="#search-results" hx-include="#bom"></button>
+<br>
+<button hx-get="/" hx-swap="innerHTML" hx-target="#search-results" hx-include="#bom">Search</button>
+<br>
+<br>
 <div id="search-results"></div>
 </body>
 </html>

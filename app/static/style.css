@@ -1,0 +1,22 @@
+body {
+    background-color: #00122b;
+    color: #dfdfdf;
+}
+
+textarea {
+    background-color: #00122b;
+    color: #dfdfdf;
+}
+
+a {
+    color: #dfdfdf;
+}
+td {
+    padding: 0px 10px;
+    text-align: center;
+    border-style: solid;
+    border-color: #dfdfdf;
+    border-width: 0px 1px 1px 0px;
+}
+tr td:last-child {border-right:none;}
+tr:last-child td {border-bottom:none;}

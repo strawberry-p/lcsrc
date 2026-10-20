@@ -17,6 +17,7 @@ def get_db() -> tuple[sq3.Connection,sq3.Cursor]:
 def init_main_db():
     if dryrun:
         print("skipping main db init because of dryrun")
+        return
     with get_db() as conn:
         cur = conn.cursor()
         if remake_fts or remake:
@@ -26,7 +27,7 @@ def init_main_db():
             cur.execute("DROP TABLE IF EXISTS fts_main")
         if remake: cur.execute("DROP TABLE IF EXISTS main")
         cur.execute("""
-            CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE, type TEXT, subtype TEXT, type_index INT, j_category TEXT NOT NULL, j_subcat TEXT NOT NULL, sort_id INTEGER, company TEXT NOT NULL, company_id INT NOT NULL, desc TEXT, package TEXT, pins INTEGER, is_smd INTEGER, stock INTEGER, power REAL,
+            CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE, type TEXT, subtype TEXT, type_index INT, datasheet TEXT, j_category TEXT, j_subcat TEXT, sort_id INTEGER, company TEXT, company_id INT, desc TEXT, package TEXT, pins INTEGER, is_smd INTEGER, stock INTEGER, power REAL,
             j_highp REAL NOT NULL, j_highp_c INTEGER NOT NULL, j_lowp REAL NOT NULL, j_lowp_c INTEGER NOT NULL, l_highp REAL, l_highp_c INTEGER, l_lowp REAL, l_lowp_c INTEGER,
             assembly TEXT, is_basic INTEGER, is_preferred INTEGER, json TEXT NOT NULL)
             """)
@@ -43,7 +44,6 @@ def init_main_db():
             INSERT INTO fts_main (fts_main,rowid,id,mfr,company,desc,package,assembly) VALUES ('delete',old.num_id,old.id,old.mfr,old.company,old.desc,old.package,old.assembly);
             INSERT INTO fts_main (rowid,id,mfr,company,desc,package,assembly) VALUES (new.num_id,new.id,new.mfr,new.company,new.desc,new.package,new.assembly); END;""")
         conn.commit()
-        conn.close()
 
 def init_compl_tables():
     global COMPL_DB_ARRAY,CONFIG
@@ -59,7 +59,6 @@ def init_compl_tables():
                 if remake: cur.execute(f"DROP TABLE IF EXISTS {data[2]}")
                 cur.execute(f"CREATE VIRTUAL TABLE IF NOT EXISTS {data[2]} USING fts5({res_keys})") #f-strings because none of this is user input
         conn.commit()
-        conn.close()
 
 if __name__ == "__main__":
     if not Path("app").is_dir() or not Path("app/db.py").exists():
@@ -79,7 +78,7 @@ if __name__ == "__main__":
         with get_db() as conn:
             cur = conn.cursor()
             cur.execute("SELECT * FROM sqlite_master")
-            print(cur.fetchall())
+            print([list(x) for x in cur.fetchall()])
     if "--remake" in sys.argv:
         if not dryrun and input("delete and recreate empty tables? yes/*\n") == "yes": remake = True
     if "--remake-fts": remake_fts = True
@@ -99,6 +98,6 @@ if __name__ == "__main__":
                     out = ""
                 i += 1
         cur.execute("SELECT COUNT(id) FROM main")
-        print(cur.fetchone())
+        print(cur.fetchone()[0])
 
 
