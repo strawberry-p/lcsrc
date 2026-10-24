@@ -9,11 +9,15 @@
 ["Battery Holders","bat",["ConnType","BatteryType","MinTemp","MaxTemp"],[],[]],
 ["USB connectors",["Num","Pins","Standard","SpecMount","is_right_angle"],[],["USB-A Receptacle", "USB-A Plug", "Micro-B", "USB-C Receptacle", "USB-C Plug"]],
 ["Other data connectors","data_conn",["Pins","Current","Standard","is_female"],[],["HDMI"]],
-["Switches","switches",["Width","Length","Height","Pins","Voltage","Current","SwitchType","Circuit","Force","is_latching","ActuatorStyle","ActuatorColor","Life"],[],[]],
+["Switches","switches",["W","L","H","Pins","Voltage","Current","SwitchType","Circuit","Force","is_latching","ActuatorStyle","ActuatorColor","Life"],[],[]],
 ["Diodes","diodes",["Vf","Vreverse","If","ReverseLeakageCurrent"],["PowerRated","Vfmin","Vfmax","ZenerNominal","ZenerMin","ZenerMax","PeakCurrent","RectifiedCurrent"],["Rectifier","Schottky","Zener","TVS"]],
 ["LEDs","leds",["Color","ColorList","Wavelength","Intensity","Vf","If","PowerRated","LensColor","is_rgb"],["D"],[]],
 ["LEDs with IC","ic_led",["Vmin","Vmax", "is_rgb", "is_with_white", "ColorControl", "Protocol", "DataRate", "RedIntensity", "RedPeak", "RedMinWavelength", "RedMaxWavelength"], ["GreenIntensity", "GreenPeak", "GreenMinWavelength", "GreenMaxWavelength", "BlueIntensity", "BluePeak", "BlueMinWavelength", "BlueMaxWavelength", "WhiteIntensity", "WhitePeak", "WhiteMinWavelength", "WhiteMaxWavelength", "WhiteTempKelvin"], []],
-["Photodiodes","photodiodes",["PeakWavelength","SpectrumMin","SpectrumMax","DarkCurrent","Vreverse","Width","Height"],[],[]],
-["Optical sensors","opto_sensors",["SensorType"],["FallTime","RiseTime","DarkCurrent","OutputCurrent"],[]]
+["Photodiodes","photodiodes",["PeakWavelength","SpectrumMin","SpectrumMax","DarkCurrent","Vreverse","W","H"],[],[]],
+["Optical sensors","opto_sensors",["SensorType"],["FallTime","RiseTime","DarkCurrent","OutputCurrent"],[]],
+["BJT", "bjt", ["Ic","MaxVce","SaturationVce","MaxVoltageBaseEmitter","TransitionFreq","Pins","Num","is_npn","is_all_npn","is_complimentary"],[],["Basic","Other","Darlington"]],
+["FET","fet",["ContinuousCurrentDrain","Vds","VoltageGateThreshold","Ciss","RdsOn","RdsOnText","Pins","Num","in_npn","is_depletion","is_all_npn","is_all_depletion","is_complimentary"], [], ["MOSFET","JFET","Other"]],
+["Fuses","fuses",["HoldCurrent","TripCurrent","Vmax","MaxTripTime","Response","InitialResistance","TrippedResistance","is_resettable","W","L","H"],[],[]],
+["Relays","relays",["Type","Vcoil","Rcoil","MaxSwitchCurrent","MaxSwitchVoltage","ContactDC","ContactAC","SwitchCurrentDC","SwitchCurrentIC","Circuit","is_open","is_closed"]]
 ]
 }

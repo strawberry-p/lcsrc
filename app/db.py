@@ -3,7 +3,7 @@ import json, sys
 from pathlib import Path
 DB_PATH = "data/parts.db"
 CONFIG_PATH = Path("app/config.json")
-COMPL_DB_ARRAY: list[list[str,str,list[str],list[str],list[str]]] = [] # (type_name,type_db,common_attrs,possible_attrs,subtypes)
+COMPL_DB_ARRAY: list[tuple[str,str,list[str],list[str],list[str]]] = [] # (type_name,type_db,common_attrs,possible_attrs,subtypes)
 # A lot of useful parameters aren't in the JLCSearch website table! 'json' provides them
 CONFIG: dict = {}
 dryrun: bool = False
@@ -71,7 +71,7 @@ if __name__ == "__main__":
             Path("data").mkdir(exist_ok=True)
     with CONFIG_PATH.open() as f:
         CONFIG = json.load(f)
-    COMPL_DB_ARRAY = CONFIG["compl_db_array"]
+    COMPL_DB_ARRAY = [tuple(x) for x in CONFIG["compl_db_array"]]
     if "--dry-run" in sys.argv: dryrun = True
     if "--list-tables" in sys.argv:
         dryrun = True
