@@ -63,6 +63,9 @@ def init_compl_tables():
 if __name__ == "__main__":
     if not Path("app").is_dir() or not Path("app/db.py").exists():
         print(f"app/ doesn't exist or doesn't contain this module, check that {str(Path.cwd())} is the correct directory")
+    if not CONFIG_PATH.is_file():
+        print("missing app/config.json")
+        exit("add app/config.json")
     if "--dry-run" in sys.argv: dryrun = True
     if not Path("data").is_dir():
         if dryrun: print("data/ is missing")
@@ -79,6 +82,21 @@ if __name__ == "__main__":
             cur = conn.cursor()
             cur.execute("SELECT * FROM sqlite_master")
             print([list(x) for x in cur.fetchall()])
+            print("\n")
+    if "--show-compl" in sys.argv:
+        dryrun = True
+        for tup in COMPL_DB_ARRAY:
+            missing = ""
+            additional = ""
+            if len(tup) > 3 and len(tup[3]):
+                additional = f", {len(tup[3])} additional attrs"
+            subtypes = ""
+            if len(tup) > 4 and len(tup[4]):
+                subtypes = f", subtypes {tup[4]}"
+            if len(tup) < 4: missing = ", missing additional atrs"
+            elif len(tup) == 4: missing = ", missing subtypes"
+            print(f"{tup[0]}: {len(tup[2])} main attrs{additional}{subtypes}{missing}")
+        print("\n")
     if "--remake" in sys.argv:
         if not dryrun and input("delete and recreate empty tables? yes/*\n") == "yes": remake = True
     if "--remake-fts": remake_fts = True

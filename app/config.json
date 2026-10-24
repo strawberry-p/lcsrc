@@ -18,6 +18,6 @@
 ["BJT", "bjt", ["Ic","MaxVce","SaturationVce","MaxVoltageBaseEmitter","TransitionFreq","Pins","Num","is_npn","is_all_npn","is_complimentary"],[],["Basic","Other","Darlington"]],
 ["FET","fet",["ContinuousCurrentDrain","Vds","VoltageGateThreshold","Ciss","RdsOn","RdsOnText","Pins","Num","in_npn","is_depletion","is_all_npn","is_all_depletion","is_complimentary"], [], ["MOSFET","JFET","Other"]],
 ["Fuses","fuses",["HoldCurrent","TripCurrent","Vmax","MaxTripTime","Response","InitialResistance","TrippedResistance","is_resettable","W","L","H"],[],[]],
-["Relays","relays",["Type","Vcoil","Rcoil","MaxSwitchCurrent","MaxSwitchVoltage","ContactDC","ContactAC","SwitchCurrentDC","SwitchCurrentIC","Circuit","is_open","is_closed"]]
+["Relays","relays",["Type","Vcoil","Rcoil","MaxSwitchCurrent","MaxSwitchVoltage","ContactDC","ContactAC","SwitchCurrentDC","SwitchCurrentIC","Circuit","is_open","is_closed"],[],[]]
 ]
 }
