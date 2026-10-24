@@ -18,6 +18,11 @@
 ["BJT", "bjt", ["Ic","MaxVce","SaturationVce","MaxVoltageBaseEmitter","TransitionFreq","Pins","Num","is_npn","is_all_npn","is_complimentary"],[],["Basic","Other","Darlington"]],
 ["FET","fet",["ContinuousCurrentDrain","Vds","VoltageGateThreshold","Ciss","RdsOn","RdsOnText","Pins","Num","in_npn","is_depletion","is_all_npn","is_all_depletion","is_complimentary"], [], ["MOSFET","JFET","Other"]],
 ["Fuses","fuses",["HoldCurrent","TripCurrent","Vmax","MaxTripTime","Response","InitialResistance","TrippedResistance","is_resettable","W","L","H"],[],[]],
-["Relays","relays",["Type","Vcoil","Rcoil","MaxSwitchCurrent","MaxSwitchVoltage","ContactDC","ContactAC","SwitchCurrentDC","SwitchCurrentIC","Circuit","is_open","is_closed"],[],[]]
+["Relays","relays",["Type","Vcoil","Rcoil","MaxSwitchCurrent","MaxSwitchVoltage","ContactDC","ContactAC","SwitchCurrentDC","SwitchCurrentIC","Circuit","is_open","is_closed"],[],[]],
+["Voltage Regulators","voltage_regulators",["MaxCurrent","MinVout","MaxVout","is_fixed","is_positive","is_not_controller", "MinVin","MaxVin","PSRR","StandbyCurrent","MinTemp","MaxTemp", "is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_prot_uvlo","is_enable","is_softstart"],["Dropout"], ["LDO","Linear","Buck Converter","Boost Converter","Buck-boost Converter"]],
+["LED drivers","led_drivers",["MaxCurrent","MinVin","MaxVin","Interface","is_pwm","is_analog","SwitchFreq","Vout","is_builtin","is_nixie","ChannelsNum"],[],[]],
+["TFT display drivers","tft_display_drivers",["CurrentAccuracy","is_pwm","is_analog","MinVin","MaxVin","MinSwitchFreq","MaxSwitchFreq","StandbyCurrent","Interface","is_nixie"], ["is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_builtin"],["Display Controller","Power / Bias","Backlight Driver"]],
+["LCD drivers","lcd_display_drivers",["Segment","Bits","StandbyCurrent","SupplyCurrent","Interface","MinVin","MaxVin"],[],[]],
+["Stepper motor drivers","stepper_drivers",["DriveType","MaxCurrent","MinVout","MinVout","Interface","MinTemp","MaxTemp","HBridgeNum","StepRes","is_builtin", "is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_prot_uvlo","is_prot_overvoltage","is_prot_motor_stepout","is_poweron_reset","is_prot_deadtime"], ["MinVin","MaxVin"]]
 ]
 }
