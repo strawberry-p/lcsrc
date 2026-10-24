@@ -6,7 +6,7 @@
 ["Power connectors","power_conn",[],["ID","OD","Voltage","Current","is_right_angle","Pitch"],["BarrelJack","JST"]],
 ["PC connectors","pc_conn",["Height","is_right_angle","Standard"],["M2Key"],["DIMM","SO-DIMM","PCIe M.2"]],
 ["Spring clamp connectors","spring_conn",["Voltage","Current","Pitch","GaugeSurface","AWG"],["SpecMount"],["Spring clamp connector","Spring clamp terminal block"]],
-["Battery Holders","bat",["ConnType","BatteryType","MinTemp","MaxTemp"],[],[]],
+["Battery Holders","bat",["ConnType","BatteryType"],[],[]],
 ["USB connectors",["Num","Pins","Standard","SpecMount","is_right_angle"],[],["USB-A Receptacle", "USB-A Plug", "Micro-B", "USB-C Receptacle", "USB-C Plug"]],
 ["Other data connectors","data_conn",["Pins","Current","Standard","is_female"],[],["HDMI"]],
 ["Switches","switches",["W","L","H","Pins","Voltage","Current","SwitchType","Circuit","Force","is_latching","ActuatorStyle","ActuatorColor","Life"],[],[]],
@@ -19,10 +19,18 @@
 ["FET","fet",["ContinuousCurrentDrain","Vds","VoltageGateThreshold","Ciss","RdsOn","RdsOnText","Pins","Num","in_npn","is_depletion","is_all_npn","is_all_depletion","is_complimentary"], [], ["MOSFET","JFET","Other"]],
 ["Fuses","fuses",["HoldCurrent","TripCurrent","Vmax","MaxTripTime","Response","InitialResistance","TrippedResistance","is_resettable","W","L","H"],[],[]],
 ["Relays","relays",["Type","Vcoil","Rcoil","MaxSwitchCurrent","MaxSwitchVoltage","ContactDC","ContactAC","SwitchCurrentDC","SwitchCurrentIC","Circuit","is_open","is_closed"],[],[]],
-["Voltage Regulators","voltage_regulators",["MaxCurrent","MinVout","MaxVout","is_fixed","is_positive","is_not_controller", "MinVin","MaxVin","PSRR","StandbyCurrent","MinTemp","MaxTemp", "is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_prot_uvlo","is_enable","is_softstart"],["Dropout"], ["LDO","Linear","Buck Converter","Boost Converter","Buck-boost Converter"]],
+["Voltage Regulators","voltage_regulators",["MaxCurrent","MinVout","MaxVout","is_fixed","is_positive","is_not_controller", "MinVin","MaxVin","PSRR","StandbyCurrent", "is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_prot_uvlo","is_enable","is_softstart"],["Dropout"], ["LDO","Linear","Buck Converter","Boost Converter","Buck-boost Converter"]],
 ["LED drivers","led_drivers",["MaxCurrent","MinVin","MaxVin","Interface","is_pwm","is_analog","SwitchFreq","Vout","is_builtin","is_nixie","ChannelsNum"],[],[]],
 ["TFT display drivers","tft_display_drivers",["CurrentAccuracy","is_pwm","is_analog","MinVin","MaxVin","MinSwitchFreq","MaxSwitchFreq","StandbyCurrent","Interface","is_nixie"], ["is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_builtin"],["Display Controller","Power / Bias","Backlight Driver"]],
 ["LCD drivers","lcd_display_drivers",["Segment","Bits","StandbyCurrent","SupplyCurrent","Interface","MinVin","MaxVin"],[],[]],
-["Stepper motor drivers","stepper_drivers",["DriveType","MaxCurrent","MinVout","MinVout","Interface","MinTemp","MaxTemp","HBridgeNum","StepRes","is_builtin", "is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_prot_uvlo","is_prot_overvoltage","is_prot_motor_stepout","is_poweron_reset","is_prot_deadtime"], ["MinVin","MaxVin"]]
+["Stepper motor drivers","stepper_drivers",["DriveType","MaxCurrent","MinVout","MinVout","Interface","HBridgeNum","StepRes","is_builtin", "is_prot_overcurrent","is_prot_shortcircuit","is_prot_thermal","is_prot_uvlo","is_prot_overvoltage","is_prot_motor_stepout","is_poweron_reset","is_prot_deadtime"], ["MinVin","MaxVin"],[]],
+["I/O expanders","io_expanders",["NumGpio","MinVin","MaxVin","Clk","StandbyCurrent","PinSinkCurrent","PinSourceCurrent","OutputType",
+"is_pushpull","is_interrupt","is_i2c","is_spi","is_smbus"],[],[]],
+["ADCs","adc",["Resolution","SampleHz","SampleKHz","ChannelsNum","MinVin","MaxVin","SNR","Clk","Arch", "is_external_ref","is_diff","is_i2c","is_spi","is_parallel","is_serial","is_uart"],[],[]],
+["DACs","dac",["Resolution","Settle","SettleFreqKHz","ChannelsNum","OutputType","MinVin","MaxVin", "is_i2c","is_spi","is_parallel","is_voltage_buffer"]],
+["Microphones","microphones",["is_mems","Vmin","Vmax","Resistance","dB"]],
+["Gyroscopes","gyro",["AccelRange","Axis","AxisCount","MinVin","MaxVin"],["StandbyCurrent"]],
+["Accelerometers","accel",["MinVin","MaxVin","SensorType","is_i2c","is_spi","is_uart","is_timestamp","is_motion_event","is_imu"],["StandbyCurrent","Resolution"]],
+["Gas Sensors","gas_sensors",["MinVin","MaxVin","StandbyCurrent","is_air_quality","is_co2","is_oxygen", "is_carbon_monoxide","is_methane","is_nitrogen_oxide","is_voc","is_hydrogen","is_explosive"]]
 ]
 }

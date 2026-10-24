@@ -28,6 +28,7 @@ def init_main_db():
         if remake: cur.execute("DROP TABLE IF EXISTS main")
         cur.execute("""
             CREATE TABLE IF NOT EXISTS main (num_id INTEGER PRIMARY KEY, id TEXT UNIQUE, mfr TEXT UNIQUE, type TEXT, subtype TEXT, type_index INT, datasheet TEXT, j_category TEXT, j_subcat TEXT, sort_id INTEGER, company TEXT, company_id INT, desc TEXT, package TEXT, pins INTEGER, is_smd INTEGER, stock INTEGER, power REAL,
+            min_temp REAL, max_temp REAL,
             j_highp REAL NOT NULL, j_highp_c INTEGER NOT NULL, j_lowp REAL NOT NULL, j_lowp_c INTEGER NOT NULL, l_highp REAL, l_highp_c INTEGER, l_lowp REAL, l_lowp_c INTEGER,
             assembly TEXT, is_basic INTEGER, is_preferred INTEGER, json TEXT NOT NULL)
             """)
