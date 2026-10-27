@@ -28,9 +28,13 @@
 "is_pushpull","is_interrupt","is_i2c","is_spi","is_smbus"],[],[]],
 ["ADCs","adc",["Resolution","SampleHz","SampleKHz","ChannelsNum","MinVin","MaxVin","SNR","Clk","Arch", "is_external_ref","is_diff","is_i2c","is_spi","is_parallel","is_serial","is_uart"],[],[]],
 ["DACs","dac",["Resolution","Settle","SettleFreqKHz","ChannelsNum","OutputType","MinVin","MaxVin", "is_i2c","is_spi","is_parallel","is_voltage_buffer"]],
-["Microphones","microphones",["is_mems","Vmin","Vmax","Resistance","dB"]],
-["Gyroscopes","gyro",["AccelRange","Axis","AxisCount","MinVin","MaxVin"],["StandbyCurrent"]],
-["Accelerometers","accel",["MinVin","MaxVin","SensorType","is_i2c","is_spi","is_uart","is_timestamp","is_motion_event","is_imu"],["StandbyCurrent","Resolution"]],
-["Gas Sensors","gas_sensors",["MinVin","MaxVin","StandbyCurrent","is_air_quality","is_co2","is_oxygen", "is_carbon_monoxide","is_methane","is_nitrogen_oxide","is_voc","is_hydrogen","is_explosive"]]
+["Microphones","microphones",["is_mems","Vmin","Vmax","Resistance","dB"],[],[]],
+["Gyroscopes","gyro",["AccelRange","Axis","AxisCount","MinVin","MaxVin"],["StandbyCurrent"],[]],
+["Accelerometers","accel",["MinVin","MaxVin","SensorType","is_i2c","is_spi","is_uart","is_timestamp","is_motion_event","is_imu"],["StandbyCurrent","Resolution"],[]],
+["Gas Sensors","gas_sensors",["MinVin","MaxVin","StandbyCurrent","is_air_quality","is_co2","is_oxygen", "is_carbon_monoxide","is_methane","is_nitrogen_oxide","is_voc","is_hydrogen","is_explosive"],[]],
+["LED Segment Display Modules","led_segment_display",["Positions","Size","Color","W","H","L","is_common_cathode"],[]],
+["LED Dot Matrix Display Modules","led_matrix_display",["Color","DisplayW","DisplayL"],["Polarity"],[]],
+["LCD Display Modules","lcd_display",["DisplayW","DisplayL","Interace","Controller","Size","W","L","Luminance","is_touch"],[],[]],
+["OLED Display Modules","oled_display",["Size","DisplayW","DisplayL","is_i2c","is_spi","is_controller"],["DriveType","ControllerType","Luminance","Color","W","L","MinVin","MaxVin"]]
 ]
 }
