@@ -1,6 +1,8 @@
 # LCSRC
 
-A way to get pricing info for your BoM and (eventually) find replacement components.
+![A screenshot showing LCSRC with the BoM input field and the results table](https://cdn.hackclub.com/01a17aca-c3f9-7dc5-a183-83ee1d78fa7e/Screenshot%202026-10-27%20at%2001-34-58%20LCSRC.png)
+
+A way to get pricing info for your BoM and (eventually) find replacement components+search by electrical parameters. I made it because JLCPCB/LCSC have a bad search interface which often doesn't offer range search or expose some important parameters (even though they're provided by the manufacturer!), JLCsearch limits search to only a couple of fields it considers important, and JLCparts downloads 10GB into your browser's IndexedDB. None of these solutions are ideal, especially when you have someone breathing down your neck about "quickly bringing the total BoM cost down" while JLCPCB just finds some standard PCBA parts that have been out of production for 3 years.
 
 ## Usage
 
